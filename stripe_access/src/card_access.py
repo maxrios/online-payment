@@ -26,3 +26,22 @@ def delete_customer(customer_id):
     stripe.api_key = os.getenv("STRIPE_APP_API_KEY")
     deleted_customer = stripe.Customer.delete(customer_id)
     return deleted_customer
+
+
+def add_card(customer_id, number, exp_month, exp_year, cvc):
+    load_dotenv()
+    stripe.api_key = os.getenv("STRIPE_APP_API_KEY")
+    card_token = stripe.Token.create(
+        card={
+            'number': number,
+            'exp_month': exp_month,
+            'exp_year': exp_year,
+            'cvc': cvc,
+        }
+    )
+    print('Customer ID: ' + customer_id)
+    card = stripe.Customer.create_source(
+        id=customer_id,
+        source=card_token
+    )
+    return card.get('id')

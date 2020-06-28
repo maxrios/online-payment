@@ -8,6 +8,12 @@
     <p>Customer ID: {{ user.profile.customer_id }}</p>
     <p>Email: {{ user.email }}</p>
     <p>DOB: {{ user.profile.birth_date }}</p>
+    <p>Cards IDs:</p>
+    <ol>
+      {% for i in user.profile.cards_set.all %}
+        <li>{{ i.card_id }}</li>
+      {% endfor %}
+    </ol>
     <div>
       <a href="{% url 'addcard' %}">Register Card</a>
       /

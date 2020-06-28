@@ -17,5 +17,5 @@ def update_user_profile(sender, instance, created, **kwawgs):
 
 
 class Cards(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='card')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     card_id = models.CharField(max_length=100)
