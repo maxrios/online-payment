@@ -5,11 +5,20 @@
 {% block content %}
   {% if user.is_authenticated %}
     <p>Hi {{ user.username }}</p>
-    <a href="{% url 'logout' %}">logout</a>
+    <p>Customer ID: {{ user.profile.customer_id }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>DOB: {{ user.profile.birth_date }}</p>
+    <div>
+      <a href="{% url 'addcard' %}">Register Card</a>
+      /
+      <a href="{% url 'logout' %}">logout</a>
+    </div>
   {% else %}
     <p>You are not logged in</p>
-    <a href="{% url 'login' %}">login</a>
-    <br>
-    <a href="{% url 'signup' %}">signup</a>
+    <div>
+      <a href="{% url 'login' %}">login</a>
+      /
+      <a href="{% url 'signup' %}">signup</a>
+    </div>
   {% endif %}
 {% endblock %}
