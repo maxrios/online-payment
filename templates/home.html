@@ -3,7 +3,12 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  {% if user.is_authenticated %}
+  {% if user.is_superuser %}
+    <p>Hi {{ user.username }}</p>
+    <a href="{% url 'admin:index' %}">admin dashboard</a>
+    /
+    <a href="{% url 'logout' %}">logout</a>
+  {% elif user.is_authenticated %}
     <p>Hi {{ user.username }}</p>
     <p>Customer ID: {{ user.profile.customer_id }}</p>
     <p>Email: {{ user.email }}</p>
