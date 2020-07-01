@@ -10,17 +10,19 @@
     <a href="{% url 'logout' %}">logout</a>
   {% elif user.is_authenticated %}
     <p>Hi {{ user.username }}</p>
-    <p>Customer ID: {{ user.profile.customer_id }}</p>
+    <!-- <p>Customer ID: {{ user.profile.customer_id }}</p> -->
     <p>Email: {{ user.email }}</p>
     <p>DOB: {{ user.profile.birth_date }}</p>
-    <p>Cards IDs:</p>
+    <!-- <p>Cards IDs:</p>
     <ol>
-      {% for i in user.profile.cards_set.all %}
+      {% for i in user.profile.card_info_set.all %}
         <li>{{ i.card_id }}</li>
       {% endfor %}
-    </ol>
+    </ol> -->
     <div>
-      <a href="{% url 'addcard' %}">Register Card</a>
+      <a href="{% url 'addcard' %}">register card</a>
+      /
+      <a href="{% url 'removecard' %}">remove card</a>
       /
       <a href="{% url 'logout' %}">logout</a>
     </div>

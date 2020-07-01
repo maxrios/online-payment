@@ -39,9 +39,28 @@ def add_card(customer_id, number, exp_month, exp_year, cvc):
             'cvc': cvc,
         }
     )
-    print('Customer ID: ' + customer_id)
     card = stripe.Customer.create_source(
         id=customer_id,
         source=card_token
     )
     return card.get('id')
+
+
+def retrieve_card(customer_id, card_id):
+    load_dotenv()
+    stripe.api_key = os.getenv("STRIPE_APP_API_KEY")
+    card_info = stripe.Customer.retrieve_source(
+        customer_id,
+        card_id
+    )
+    return card_info
+
+
+def remove_card(customer_id, card_id):
+    load_dotenv()
+    stripe.api_key = os.getenv("STRIPE_APP_API_KEY")
+    response = stripe.Customer.delete_source(
+        customer_id,
+        card_id
+    )
+    return response.get('deleted')

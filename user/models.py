@@ -14,8 +14,3 @@ def update_user_profile(sender, instance, created, **kwawgs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
-
-
-class Cards(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    card_id = models.CharField(max_length=100)
