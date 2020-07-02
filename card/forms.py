@@ -2,10 +2,15 @@ from django import forms
 from stripe_access.src.card_access import retrieve_card
 
 class NewCardForm(forms.Form):
-    number      = forms.CharField(max_length=16, required=True, help_text='Required.')
-    exp_month   = forms.IntegerField(required=True, help_text='Required.')
-    exp_year    = forms.IntegerField(required=True, help_text='Required.')
-    cvc         = forms.CharField(max_length=3, required=True, help_text='Required.')
+    number      = forms.CharField(max_length=16, required=True)
+    exp_month   = forms.IntegerField(required=True)
+    exp_year    = forms.IntegerField(required=True)
+    cvc         = forms.CharField(max_length=3, required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(NewCardForm, self).__init__(*args, **kwargs)
+        self.fields['exp_month'].widget.attrs['placeholder'] = 'MM'
+        self.fields['exp_year'].widget.attrs['placeholder'] = 'YYYY'
 
     def clean_number(self):
         number = ''.join((self.cleaned_data['number']).split())
@@ -26,13 +31,12 @@ class NewCardForm(forms.Form):
 
 
 class RemoveCardForm(forms.Form):
-    card = forms.ChoiceField(widget=forms.RadioSelect)
+    card = forms.ChoiceField(widget=forms.RadioSelect, required=True, label='')
 
     def __init__(self, user, *args, **kwargs):
         super(RemoveCardForm, self).__init__(*args, **kwargs)
-
+        self.fields['card'].widget.attrs['class'] = 'list-unstyled'
         cards = user.profile.cards_info.all()
-        print(cards)
         choices = []
         for card in cards:
             card_info = retrieve_card(user.profile.customer_id, card.card_id)

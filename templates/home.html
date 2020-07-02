@@ -4,21 +4,14 @@
 
 {% block content %}
   {% if user.is_superuser %}
-    <p>Hi {{ user.username }}</p>
+    <h3>Hi, {{ user.username }}!</h3>
+    <hr>
     <a href="{% url 'admin:index' %}">admin dashboard</a>
     /
     <a href="{% url 'logout' %}">logout</a>
   {% elif user.is_authenticated %}
-    <p>Hi {{ user.username }}</p>
-    <!-- <p>Customer ID: {{ user.profile.customer_id }}</p> -->
-    <p>Email: {{ user.email }}</p>
-    <p>DOB: {{ user.profile.birth_date }}</p>
-    <!-- <p>Cards IDs:</p>
-    <ol>
-      {% for i in user.profile.card_info_set.all %}
-        <li>{{ i.card_id }}</li>
-      {% endfor %}
-    </ol> -->
+    <h3>Hi, {{ user.username }}!</h3>
+    <hr>
     <div>
       <a href="{% url 'addcard' %}">register card</a>
       /
@@ -27,7 +20,8 @@
       <a href="{% url 'logout' %}">logout</a>
     </div>
   {% else %}
-    <p>You are not logged in</p>
+    <h3>You are not logged in</h3>
+    <hr>
     <div>
       <a href="{% url 'login' %}">login</a>
       /
