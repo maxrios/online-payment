@@ -22,7 +22,7 @@ def add_card(request):
             return redirect('home')
     else:
         form = NewCardForm()
-    return render(request, 'card_registration.html', {'form': form})
+    return render(request, 'card/card_registration.html', {'form': form})
 
 
 @login_required(login_url='/user/login/')
@@ -35,4 +35,4 @@ def remove_card(request):
             return redirect('removecard')
     else:
         form = RemoveCardForm(request.user)
-    return render(request, 'card_list.html', {'form': form})
+    return render(request, 'card/card_list.html', {'form': form})
