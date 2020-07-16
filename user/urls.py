@@ -1,5 +1,5 @@
 from django.urls import path
-from card.views import add_card, remove_card
+from card.views import add_card, edit_card, remove_card
 from . import views
 
 urlpatterns = [

@@ -31,18 +31,21 @@ def delete_customer(customer_id):
 def add_card(customer_id, number, exp_month, exp_year, cvc):
     load_dotenv()
     stripe.api_key = os.getenv("STRIPE_APP_API_KEY")
-    card_token = stripe.Token.create(
-        card={
-            'number': number,
-            'exp_month': exp_month,
-            'exp_year': exp_year,
-            'cvc': cvc,
-        }
-    )
-    card = stripe.Customer.create_source(
-        id=customer_id,
-        source=card_token
-    )
+    try:
+        card_token = stripe.Token.create(
+            card={
+                'number': number,
+                'exp_month': exp_month,
+                'exp_year': exp_year,
+                'cvc': cvc,
+            }
+        )
+        card = stripe.Customer.create_source(
+            id=customer_id,
+            source=card_token
+        )
+    except:
+        return 'EXPIRED'
     return card.get('id')
 
 
@@ -64,3 +67,16 @@ def remove_card(customer_id, card_id):
         card_id
     )
     return response.get('deleted')
+
+def edit_card(customer_id, card_id, number, exp_month, exp_year, cvc):
+    load_dotenv()
+    stripe.api_key = os.getenv("STRIPE_APP_API_KEY")
+    response = stripe.Customer.modify_source(
+        customer_id,
+        card_id,
+        number=number,
+        exp_month=exp_month,
+        exp_year=exp_year,
+        cvc=cvc
+    )
+    return response.get('id')

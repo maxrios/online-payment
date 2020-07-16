@@ -8,6 +8,8 @@
     <hr>
     <a href="{% url 'admin:index' %}">admin dashboard</a>
     /
+    <a href="{% url 'all-purchases' %}">all purchases</a>
+    /
     <a href="{% url 'logout' %}">logout</a>
   {% elif user.is_authenticated %}
     <h3>Hi, {{ user.username }}!</h3>
@@ -15,7 +17,9 @@
     <div>
       <a href="{% url 'addcard' %}">register card</a>
       /
-      <a href="{% url 'removecard' %}">remove card</a>
+      <a href="{% url 'removecard' %}">view card</a>
+      /
+      <a href="{% url 'create-purchase' %}">create purchase</a>
       /
       <a href="{% url 'logout' %}">logout</a>
     </div>

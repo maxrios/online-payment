@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Card List{% endblock %}
+
+{% block content %}
+    <h1 class='mb-5'>Create Purchase</h1>
+        <form method="post" id='confirm-payment-form'>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Confirm</button>
+        </form>
+    <hr>
+    <div class='mt-3'>
+        <a href="{% url 'home' %}">home</a>
+    </div>
+
+    <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary" form='confirm-payment-form'>Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

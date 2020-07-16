@@ -11,7 +11,6 @@ def signup(request):
         if form.is_valid():
             user    = form.save()
             user.refresh_from_db()
-            user.profile.birth_date = form.cleaned_data.get('birth_date')
             user.profile.customer_id = card_access.add_customer(
                 form.cleaned_data.get('first_name'),
                 form.cleaned_data.get('last_name'),
