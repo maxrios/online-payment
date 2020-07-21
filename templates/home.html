@@ -2,34 +2,12 @@
 
 {% block title %}Home{% endblock %}
 
+{% block nav-content %}
+    <a class='nav-link active' href="{% url 'home' %}">Home</a>
+    <a class='nav-link' href="{% url 'login' %}">Login</a>
+    <a class='nav-link' href="{% url 'signup' %}">Signup</a>
+{% endblock %}
+
 {% block content %}
-  {% if user.is_superuser %}
-    <h3>Hi, {{ user.username }}!</h3>
-    <hr>
-    <a href="{% url 'admin:index' %}">admin dashboard</a>
-    /
-    <a href="{% url 'all-purchases' %}">all purchases</a>
-    /
-    <a href="{% url 'logout' %}">logout</a>
-  {% elif user.is_authenticated %}
-    <h3>Hi, {{ user.username }}!</h3>
-    <hr>
-    <div>
-      <a href="{% url 'addcard' %}">register card</a>
-      /
-      <a href="{% url 'removecard' %}">view card</a>
-      /
-      <a href="{% url 'create-purchase' %}">create purchase</a>
-      /
-      <a href="{% url 'logout' %}">logout</a>
-    </div>
-  {% else %}
-    <h3>You are not logged in</h3>
-    <hr>
-    <div>
-      <a href="{% url 'login' %}">login</a>
-      /
-      <a href="{% url 'signup' %}">signup</a>
-    </div>
-  {% endif %}
+  <h3>You are not logged in</h3>
 {% endblock %}

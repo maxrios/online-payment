@@ -9,7 +9,7 @@ class CreatePurchaseForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super(CreatePurchaseForm, self).__init__(*args, **kwargs)
         self.fields['payment_method'].widget.attrs['class'] = 'list-unstyled'
-        self.fields['amount'].widget.attrs['placeholder'] = 'Enter amount in usd pennies (??)'
+        self.fields['amount'].widget.attrs['placeholder'] = 'Enter in lowest currency'
         cards = user.profile.cards_info.all()
         choices = []
         for card in cards:

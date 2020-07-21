@@ -13,7 +13,6 @@ def create_purchase(request):
     if request.method == 'POST':
         form = CreatePurchaseForm(request.user, request.POST)
         if form.is_valid():
-            print("PAY SUCCESS!!!")
             # TODO: Implement payment intent error handling
             payment_id = purchase_access.create_purchase(
                 amount=form.cleaned_data.get('amount'),
@@ -21,8 +20,8 @@ def create_purchase(request):
                 payment_method=form.cleaned_data.get('payment_method'),
                 customer_id=request.user.profile.customer_id
             )
-            print('Payment ID: ' + payment_id)
-            payment = Purchase(purchase_id=payment_id, customer_id=request.user.profile.customer_id)
+            payment = Purchase(purchase_id=payment_id, profile=request.user.profile)
+            print(payment)
             payment.save()
             return redirect('home')
     else:
